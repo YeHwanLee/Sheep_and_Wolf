@@ -1,15 +1,24 @@
+/* 1. Vite 기본 설정 덮어쓰기 (양옆 선 및 쏠림 현상 원천 차단) */
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
 * {
   box-sizing: border-box;
 }
 
+/* 2. 배경을 세련되고 살짝 더 밝은 네이비 톤으로 변경 */
 body {
   margin: 0;
-  background: radial-gradient(circle at center, #1e272e 0%, #050505 100%);
+  background: radial-gradient(circle at center, #334155 0%, #0f172a 100%);
   color: #ffffff;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -19,7 +28,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: 100vw;
+  /* 100vw 대신 100%를 사용하여 우측 쏠림(스크롤바 간섭) 완벽 해결 */
+  width: 100%;
   height: 100vh;
 }
 
@@ -34,8 +44,8 @@ body {
   font-weight: 800;
   letter-spacing: 4px;
   margin: 0 0 0.8rem 0;
-  line-height: 1.3; /* 타이틀 아래 잘림 방지를 위해 줄 간격 확보 */
-  padding-bottom: 5px; /* 잘림 방지 여백 추가 */
+  line-height: 1.3;
+  padding-bottom: 5px;
   background: linear-gradient(45deg, #ffffff, #b0b0b0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -45,10 +55,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 30px;
   border-radius: 15px;
   margin-bottom: 1.2rem;
@@ -63,7 +73,7 @@ body {
 
 .stat-label {
   font-size: 0.75rem;
-  color: #888888;
+  color: #a0aec0;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 2px;
@@ -75,7 +85,7 @@ body {
 }
 
 .stat-value.highlight {
-  color: #ff9f43;
+  color: #f6ad55;
 }
 
 .divider {
@@ -96,7 +106,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.5px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   color: white;
   border-radius: 20px;
   cursor: pointer;
@@ -104,7 +114,7 @@ body {
 }
 
 .controls button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-color: #ffffff;
 }
 
@@ -112,42 +122,43 @@ body {
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 .controls .reset-btn {
-  background: #ff3838;
-  border-color: #ff3838;
+  background: #ff4757;
+  border-color: #ff4757;
 }
 
 .controls .reset-btn:hover {
-  background: #ff4d4d;
-  border-color: #ff4d4d;
-  box-shadow: 0 0 12px rgba(255, 56, 56, 0.35);
+  background: #ff6b81;
+  border-color: #ff6b81;
+  box-shadow: 0 0 12px rgba(255, 71, 87, 0.4);
 }
 
+/* 3. 전체 화면 모드에서도 꽉 차보이도록 카드 크기 대폭 확대 (vh 값 증가) */
 .card-grid {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   margin: 0 auto;
 }
 
 .grid-4 {
   grid-template-columns: repeat(2, 1fr);
-  max-width: 28vh;
-  height: 37vh;
+  max-width: 40vh; /* 28vh -> 40vh */
+  height: 55vh; /* 37vh -> 55vh */
 }
 .grid-16 {
   grid-template-columns: repeat(4, 1fr);
-  max-width: 40vh;
-  height: 53vh;
+  max-width: 55vh; /* 40vh -> 55vh */
+  height: 75vh; /* 53vh -> 75vh */
 }
 .grid-36 {
   grid-template-columns: repeat(6, 1fr);
-  max-width: 44vh;
-  height: 58vh;
-  gap: 6px;
+  max-width: 65vh; /* 44vh -> 65vh */
+  height: 85vh; /* 58vh -> 85vh */
+  gap: 8px;
 }
 
 .card {
@@ -178,7 +189,7 @@ body {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   background-color: transparent;
 }
