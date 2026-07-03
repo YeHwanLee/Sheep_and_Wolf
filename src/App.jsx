@@ -116,8 +116,8 @@ function App() {
 
   return (
     <div className="App">
+      {/* 🚀 상단 UI 구역 (절대 움직이거나 크기가 변하지 않음) */}
       <header className="game-header">
-        {/* 타이틀을 귀엽게 변경 */}
         <h1>숨은 양 찾기 🐑</h1>
 
         <div className="stats-panel">
@@ -129,7 +129,6 @@ function App() {
           </div>
           <div className="divider"></div>
           <div className="stat-item">
-            {/* 아이들에게 부담 덜한 단어로 변경 */}
             <span className="stat-label">도전 횟수</span>
             <span className="stat-value highlight">{attempts}</span>
           </div>
@@ -160,10 +159,13 @@ function App() {
         </div>
       </header>
 
-      <div className={`card-grid grid-${cardCount}`}>
-        {cards.map((card) => (
-          <Card key={card.id} card={card} onClick={handleCardClick} />
-        ))}
+      {/* 🚀 플레이 존 구역 (남은 화면에 알아서 꽉 차게 카드를 배치) */}
+      <div className="play-zone">
+        <div className={`card-grid grid-${cardCount}`}>
+          {cards.map((card) => (
+            <Card key={card.id} card={card} onClick={handleCardClick} />
+          ))}
+        </div>
       </div>
     </div>
   );
