@@ -10,7 +10,7 @@ import backImg from './assets/card-back.png';
 function App() {
   const [cards, setCards] = useState([]);
   const [isLocked, setIsLocked] = useState(false);
-  const [isResetting, setIsResetting] = useState(false); // 리셋 중복 클릭 방지용 독립 상태
+  const [isResetting, setIsResetting] = useState(false);
   const [cardCount, setCardCount] = useState(16);
   const [attempts, setAttempts] = useState(1);
   const [sheepFound, setSheepFound] = useState(0);
@@ -50,16 +50,16 @@ function App() {
   };
 
   const resetGame = (newCount) => {
-    if (isResetting) return; // 리셋 중일 때만 연타 방지
+    if (isResetting) return;
     setIsResetting(true);
-    setIsLocked(true); // 카드 뒤집기 방지
+    setIsLocked(true);
 
     setCards((prev) => prev.map((card) => ({ ...card, isFlipped: false })));
 
     setTimeout(() => {
       setCardCount(newCount);
       initGame(newCount, true);
-      setIsResetting(false); // 리셋 완료 후 잠금 해제
+      setIsResetting(false);
     }, 600);
   };
 
@@ -117,7 +117,8 @@ function App() {
   return (
     <div className="App">
       <header className="game-header">
-        <h1>FIND THE SHEEP</h1>
+        {/* 타이틀을 귀엽게 변경 */}
+        <h1>숨은 양 찾기 🐑</h1>
 
         <div className="stats-panel">
           <div className="stat-item">
@@ -128,7 +129,8 @@ function App() {
           </div>
           <div className="divider"></div>
           <div className="stat-item">
-            <span className="stat-label">시도 횟수</span>
+            {/* 아이들에게 부담 덜한 단어로 변경 */}
+            <span className="stat-label">도전 횟수</span>
             <span className="stat-value highlight">{attempts}</span>
           </div>
         </div>
@@ -138,22 +140,22 @@ function App() {
             className={cardCount === 4 ? 'active' : ''}
             onClick={() => resetGame(4)}
           >
-            EASY
+            쉬움
           </button>
           <button
             className={cardCount === 16 ? 'active' : ''}
             onClick={() => resetGame(16)}
           >
-            NORMAL
+            보통
           </button>
           <button
             className={cardCount === 36 ? 'active' : ''}
             onClick={() => resetGame(36)}
           >
-            HARD
+            어려움
           </button>
           <button className="reset-btn" onClick={() => resetGame(cardCount)}>
-            NEW GAME
+            다시 하기
           </button>
         </div>
       </header>
