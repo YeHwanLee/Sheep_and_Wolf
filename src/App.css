@@ -1,0 +1,82 @@
+/* 게임 전체 중앙 정렬 */
+.App {
+  text-align: center;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+/* 4x4 카드 그리드 레이아웃 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 500px; /* 전체 보드 크기 */
+  margin: 20px auto;
+}
+
+/* 개별 카드 컨테이너 */
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* 정사각형 비율 */
+  perspective: 1000px; /* 3D 효과를 위한 원근감 */
+  cursor: pointer;
+}
+
+/* 카드 회전축 및 애니메이션 속성 */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d; /* 3D 공간 유지 */
+}
+
+/* 카드가 뒤집혔을 때 180도 회전 */
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+/* 카드 앞면, 뒷면 공통 속성 */
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* 뒷면이 화면을 향할 때 숨김 */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 뒷면(유저가 처음 보는 면 - 구조상 클래스 이름이 front임) 속성 */
+.card-front {
+  background-color: #f0f0f0;
+}
+
+/* 앞면(뒤집혀서 그림이 나오는 면) 속성 */
+.card-back {
+  background-color: #ffffff;
+  transform: rotateY(180deg); /* 미리 180도 돌려놓음 */
+}
+
+/* 카드 이미지 크기 맞춤 */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 리셋 버튼 디자인 */
+.reset-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #45a049;
+}
