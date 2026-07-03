@@ -3,17 +3,18 @@ import React from 'react';
 function Card({ card, onClick }) {
   return (
     <div className="card" onClick={() => onClick(card)}>
-      {/* isFlipped 상태에 따라 flipped 클래스가 추가됨 */}
       <div className={`card-inner ${card.isFlipped ? 'flipped' : ''}`}>
-        {/* 카드 뒷면 (기본 상태) */}
-        <div className="card-front">
-          <img src={card.backImg} alt="card back" />
+        
+        {/* 카드 뒷면 (유저가 처음 보는 무늬) */}
+        <div className="card-face card-front">
+          <img src={card.backImg} alt="card back" draggable="false" />
         </div>
 
-        {/* 카드 앞면 (뒤집혔을 때 나오는 양 또는 늑대) */}
-        <div className="card-back">
-          <img src={card.frontImg} alt={card.type} />
+        {/* 카드 앞면 (양 또는 늑대) */}
+        <div className="card-face card-back">
+          <img src={card.frontImg} alt={card.type} draggable="false" />
         </div>
+
       </div>
     </div>
   );
