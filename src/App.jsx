@@ -3,8 +3,6 @@ import confetti from 'canvas-confetti';
 import Card from './components/Card';
 import './App.css';
 
-import sheepImg from './assets/sheep.png';
-import wolfImg from './assets/wolf.png';
 import backImg from './assets/card-back.png';
 
 function App() {
@@ -26,8 +24,8 @@ function App() {
   const initGame = (count, isFullReset = false) => {
     const half = count / 2;
     const initialCards = [
-      ...Array(half).fill({ type: 'sheep', frontImg: sheepImg }),
-      ...Array(half).fill({ type: 'wolf', frontImg: wolfImg }),
+      ...Array(half).fill({ type: 'sheep', emoji: '🐑' }),
+      ...Array(half).fill({ type: 'wolf', emoji: '🐺' }),
     ];
 
     const shuffled = initialCards
@@ -66,9 +64,7 @@ function App() {
   const handleCardClick = (clickedCard) => {
     if (isLocked || clickedCard.isFlipped) return;
 
-    flipSound.current.currentTime = 0;
-    flipSound.current.play().catch(() => {});
-
+    // 카드를 즉시 뒤집습니다.
     setCards((prevCards) =>
       prevCards.map((card) =>
         card.id === clickedCard.id ? { ...card, isFlipped: true } : card
@@ -78,9 +74,14 @@ function App() {
     if (clickedCard.type === 'wolf') {
       setIsLocked(true);
 
-      wolfSound.current.currentTime = 0;
-      wolfSound.current.play().catch(() => {});
+      // 🚀 늑대(땡)일 때는 카드 뒤집는 소리를 생략하고,
+      // 카드가 완전히 돌아간 시점(500ms 후)에 땡 소리만 재생합니다.
+      setTimeout(() => {
+        wolfSound.current.currentTime = 0;
+        wolfSound.current.play().catch(() => {});
+      }, 000);
 
+      // 카드를 다시 덮는 시간은 땡 소리를 듣고 엎어지도록 넉넉하게 1.5초로 늦췄습니다.
       setTimeout(() => {
         setCards((prevCards) =>
           prevCards.map((card) => ({ ...card, isFlipped: false }))
@@ -88,8 +89,12 @@ function App() {
         setIsLocked(false);
         setSheepFound(0);
         setAttempts((prev) => prev + 1);
-      }, 1000);
+      }, 1500);
     } else {
+      // 🚀 양일 때는 성공 타격감을 위해 카드 뒤집는 소리를 즉시 냅니다.
+      flipSound.current.currentTime = 0;
+      flipSound.current.play().catch(() => {});
+
       const newSheepFound = sheepFound + 1;
       setSheepFound(newSheepFound);
 
@@ -100,7 +105,7 @@ function App() {
           winSound.current.currentTime = 0;
           winSound.current.play().catch(() => {});
           triggerConfetti();
-        }, 300);
+        }, 000);
       }
     }
   };
@@ -116,7 +121,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* 🚀 상단 UI 구역 (절대 움직이거나 크기가 변하지 않음) */}
       <header className="game-header">
         <h1>숨은 양 찾기 🐑</h1>
 
@@ -159,7 +163,6 @@ function App() {
         </div>
       </header>
 
-      {/* 🚀 플레이 존 구역 (남은 화면에 알아서 꽉 차게 카드를 배치) */}
       <div className="play-zone">
         <div className={`card-grid grid-${cardCount}`}>
           {cards.map((card) => (

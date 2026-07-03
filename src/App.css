@@ -4,7 +4,6 @@
 
 body {
   margin: 0;
-  /* 🎨 여기에 원하시는 배경색 코드를 넣으시면 됩니다 */
   background: #e2e8f0;
   color: #2d3436;
   font-family: 'CookieRun', sans-serif;
@@ -21,11 +20,8 @@ body {
   height: 100svh;
 }
 
-/* -------------------------------------
-   고정된 상단 헤더 영역
--------------------------------------- */
 .game-header {
-  flex-shrink: 0; /* 화면이 작아져도 이 구역은 절대 찌그러지지 않음 */
+  flex-shrink: 0;
   text-align: center;
   margin-bottom: 2svh;
   width: 100%;
@@ -126,27 +122,23 @@ body {
   box-shadow: 0 0 15px rgba(255, 118, 117, 0.4);
 }
 
-/* -------------------------------------
-   유동적 플레이 존 및 카드 배열
--------------------------------------- */
 .play-zone {
-  flex: 1; /* 상단 고정 구역을 제외한 남은 공간 전체를 꽉 채움 */
+  flex: 1;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 0; /* 화면 밖으로 넘침 방지 */
+  min-height: 0;
   padding-bottom: 2svh;
 }
 
 .card-grid {
   display: grid;
-  height: 100%; /* 플레이 존 높이에 맞춤 */
-  aspect-ratio: 2 / 3; /* 보드판 전체 비율을 직사각형 카드로 맞춤 */
-  max-width: 100%; /* 가로 폭이 좁아도 삐져나가지 않도록 자동 조절 */
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  max-width: 100%;
 }
 
-/* 카드 개수에 따라 행(row)과 열(column)을 완벽하게 등분합니다 */
 .grid-4 {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -201,9 +193,31 @@ body {
   transform: rotateY(0deg) translateZ(1px);
 }
 
+/* 🚀 해결 핵심: absolute와 transform 위치 이동을 빼고 Flexbox로만 정렬 */
 .card-back {
   transform: rotateY(180deg) translateZ(1px);
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 이렇게만 주면 렌더링이 튀지 않습니다 */
+}
+
+/* 🚀 이모지의 좌표 이동 속성을 싹 지웠습니다 */
+.emoji {
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+  display: inline-flex;
+}
+
+.grid-4 .emoji {
+  font-size: 10vh;
+}
+.grid-16 .emoji {
+  font-size: 7vh;
+}
+.grid-36 .emoji {
+  font-size: 4.5vh;
 }
 
 .card-face img {
