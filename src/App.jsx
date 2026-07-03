@@ -79,7 +79,7 @@ function App() {
       setTimeout(() => {
         wolfSound.current.currentTime = 0;
         wolfSound.current.play().catch(() => {});
-      }, 000);
+      }, 100);
 
       // 카드를 다시 덮는 시간은 땡 소리를 듣고 엎어지도록 넉넉하게 1.5초로 늦췄습니다.
       setTimeout(() => {
@@ -105,7 +105,7 @@ function App() {
           winSound.current.currentTime = 0;
           winSound.current.play().catch(() => {});
           triggerConfetti();
-        }, 000);
+        }, 100);
       }
     }
   };
